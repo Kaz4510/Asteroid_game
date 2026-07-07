@@ -16,6 +16,7 @@ Pilot a ship around the screen, shoot down waves of procedurally spawned asteroi
 - An asteroid field that continuously spawns new asteroids from the screen edges at random speeds and angles
 - Circle-based collision detection between the ship, shots, and asteroids
 - Score counter that increases each time an asteroid is shot
+- Game-over screen showing your score and session best, with a Play Again button
 - Built-in game state/event logging (`game_state.jsonl`, `game_events.jsonl`) for debugging and replay analysis
 - Playable directly in the browser (compiled to WebAssembly with [pygbag](https://github.com/pygame-web/pygbag))
 
@@ -29,8 +30,9 @@ Pilot a ship around the screen, shoot down waves of procedurally spawned asteroi
 | `D`     | Rotate right  |
 | `Space` | Shoot         |
 | `Esc`   | Quit          |
+| `Enter` | Play again (on the game-over screen) |
 
-Colliding with an asteroid ends the game.
+Colliding with an asteroid ends the round and shows the game-over screen.
 
 ## Getting started
 
@@ -51,6 +53,16 @@ python -m venv .venv
 source .venv/bin/activate
 pip install pygame==2.6.1
 python main.py
+```
+
+## Web build
+
+The browser version is compiled with pygbag using the custom dark loading
+theme in `web_theme.tmpl`, and served by GitHub Pages from `docs/`:
+
+```bash
+uv run pygbag --build --template web_theme.tmpl main.py
+cp -r build/web/. docs/
 ```
 
 ## Project structure
