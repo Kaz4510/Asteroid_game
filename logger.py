@@ -1,6 +1,7 @@
 import inspect
 import json
 import math
+import sys
 from datetime import datetime
 from typing import NotRequired, TypedDict
 
@@ -28,10 +29,13 @@ _frame_count = 0
 _state_log_initialized = False
 _event_log_initialized = False
 _start_time = datetime.now()
+_ON_WEB = sys.platform == "emscripten"
 
 
 def log_state() -> None:
     global _frame_count, _state_log_initialized
+    if _ON_WEB:
+        return
 
     # Stop logging after `_MAX_SECONDS` seconds
     if _frame_count > _FPS * _MAX_SECONDS:
@@ -135,6 +139,8 @@ def log_state() -> None:
 
 def log_event(event_type: str, **details: object) -> None:
     global _event_log_initialized
+    if _ON_WEB:
+        return
 
     now = datetime.now()
 
