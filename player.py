@@ -19,7 +19,7 @@ class Player(CircleShape):
         self.shoot_cooldown = 0
 
     def draw(self, screen: pygame.Surface) -> None:
-        pygame.draw.polygon(screen, "white", self.triangle(), LINE_WIDTH)
+        pygame.draw.polygon(screen, "green", self.triangle(), 0)
 
     # in the Player class
     def triangle(self) -> list[pygame.Vector2]:
@@ -43,10 +43,10 @@ class Player(CircleShape):
             self.rotate(dt)
 
         if keys[pygame.K_w]:
-            self.move(-dt)
+            self.move(dt)
 
         if keys[pygame.K_s]:
-            self.move(dt)
+            self.move(-dt)
 
         if keys[pygame.K_SPACE]:
             if self.shoot_cooldown > 0:
